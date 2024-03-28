@@ -24,3 +24,4 @@ Route::get('index',[UserController::class,'index'])->name('index');
 Route::get('index/{id}',[UserController::class,'index']);
 Route::put('index/{id}/edit',[UserController::class,'update']);
 Route::delete('index/{id}/delete',[UserController::class,'delete']);
+Route::post('login',[UserController::class,'login']);

@@ -11,13 +11,16 @@ class user extends Model
 
     protected $table = "employees";
 
-    // protected $fillable = ['name','email','mobile'];
-    protected $guarded =[];
+     protected $fillable = ['name','email','mobile','password'];
+    // protected $guarded =[];
 
     public function register($array){
         return self::create($array);
     }
-
+    public function login($email){
+        $data = self::where('email',$email)->first();
+        return $data;
+    }
     public function getValues($id=null){
         $query = self::select('id','name','email','mobile');
         if($id==null){
