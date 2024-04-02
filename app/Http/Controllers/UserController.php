@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\state;
 use App\Models\user;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -29,10 +30,18 @@ class UserController extends Controller
             return response()->json($value);
         }
 
-        public function index($id = null){
-            $users = $this->user->getValues($id);
+        public function index($id=null){
+            $users = $this->user->filterCountriesFromDb($id);
 
             return response()->json($users);
+        }
+
+        public function findStates($country_id=null){
+            $state = new state();
+
+            $data = $state->findStates($country_id);
+
+            return response()->json($data);
         }
 
         public function login(Request $request){

@@ -4,16 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use NunoMaduro\Collision\Adapters\Phpunit\State;
 
 class user extends Model
 {
     use HasFactory;
 
-    protected $table = "employees";
+    protected $table = "countries";
 
-     protected $fillable = ['name','email','mobile','password'];
-    // protected $guarded =[];
-
+    //  protected $fillable = ['name','email','mobile','password'];
+    protected $guarded =[];
+    public function states(){
+        return $this->hasMany(state::class);
+    }
     public function register($array){
         return self::create($array);
     }
@@ -21,15 +24,19 @@ class user extends Model
         $data = self::where('email',$email)->first();
         return $data;
     }
-    public function getValues($id=null){
-        $query = self::select('id','name','email','mobile');
-        if($id==null){
-            $data =  $query->get();
-        }else{
-            $data =  $query->where('id',$id)->get();
-        }
+    // public function getValues($id=null){
+    //     $query = self::select('id','name','email','mobile');
+    //     if($id==null){
+    //         $data =  $query->get();
+    //     }else{
+    //         $data =  $query->where('id',$id)->get();
+    //     }
 
-        return $data;
+    //     return $data;
+    // }
+
+    public function filterCountriesFromDb($id=null){
+        return $this->select("id","name","iso2")->get();
     }
 
     public function updateValues($id,$array){

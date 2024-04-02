@@ -21,7 +21,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('register',[UserController::class,'create'])->name('register');
 Route::get('index',[UserController::class,'index'])->name('index');
-Route::get('index/{id}',[UserController::class,'index']);
+Route::get('state/{country_id}',[UserController::class,'findStates']);
+Route::get('state',[UserController::class,'findStates']);
 Route::put('index/{id}/edit',[UserController::class,'update']);
 Route::delete('index/{id}/delete',[UserController::class,'delete']);
 Route::post('login',[UserController::class,'login']);
